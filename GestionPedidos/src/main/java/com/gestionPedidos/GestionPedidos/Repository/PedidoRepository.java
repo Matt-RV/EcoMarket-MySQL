@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
 
     // Método para buscar pedidos por estado
-    List<Pedido> findByEstado(String estado); 
+    List<Pedido> findByEstadoConstraingIgnoreCase(String estado); // Ignorando mayúsculas y minúsculas.
 
     //Método para buscar clientes por ID.
     List<Pedido> findByCliente_IdCliente(Integer idCliente);
