@@ -21,8 +21,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
     o delete(S entity): Borra una entidad.
     o deleteAll(): Borra todas las entidades.
     Paginación y Ordenación:
-            • findAll(Pageable pageable): Encuentra todas las entidades con paginación.
-            • findAll(Sort sort): Encuentra todas las entidades con ordenación.
+        • findAll(Pageable pageable): Encuentra todas las entidades con paginación.
+        • findAll(Sort sort): Encuentra todas las entidades con ordenación.
     */
 
     /*

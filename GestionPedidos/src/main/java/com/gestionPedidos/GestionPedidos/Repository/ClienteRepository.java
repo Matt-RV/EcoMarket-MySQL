@@ -22,23 +22,21 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
     o delete(S entity): Borra una entidad.
     o deleteAll(): Borra todas las entidades.
     Paginación y Ordenación:
-            • findAll(Pageable pageable): Encuentra todas las entidades con paginación.
-            • findAll(Sort sort): Encuentra todas las entidades con ordenación.
+        • findAll(Pageable pageable): Encuentra todas las entidades con paginación.
+        • findAll(Sort sort): Encuentra todas las entidades con ordenación.
     */
 
-    /**
-     * Método para buscar un cliente por su ID.
-     * 
-     * @param idCliente ID del cliente a buscar
-     * @return Cliente encontrado o null si no existe
+
+    /*
+     * Método que busca un cliente por su nombre.
+     * Ignorando mayúsculas y minúsculas.
      */
-    Cliente findByIdCliente(Integer idCliente);
+    Cliente findByNombreConstraingIgnoreCase(String nombre); 
 
-    // Método para buscar un cliente por su nombre
-    Cliente findByNombreConstraingIgnoreCase(String nombre); // Método para buscar un cliente por su nombre, ignorando mayúsculas y minúsculas
-
-    // Método para buscar un cliente por su email
-    Cliente findByEmailConstraingIgnoreCase(String email); // Método para buscar un cliente por su email, ignorando mayúsculas y minúsculas
+    /*
+     * Método que busca un cliente por su mail.
+     * Ignorando mayúsculas y minúsculas.
+     */
+    Cliente findByEmailConstraingIgnoreCase(String email); 
     
-    List<Pedido> findByCliente_IdCliente(Integer idCliente);
 }
