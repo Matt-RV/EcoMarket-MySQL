@@ -93,7 +93,7 @@ public class PedidoController {
      */
     // Método para eliminar un pedido por ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminar(@PathVariable Integer id) {
+    public ResponseEntity<Pedido> eliminar(@PathVariable Integer id) {
         try {
         // Primero verificar si el pedido existe
         Pedido pedido = pedidoService.findById(id);
@@ -102,7 +102,7 @@ public class PedidoController {
         }
         // Si existe, eliminarlo
         pedidoService.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(pedido); // Devuelve el pedido eliminado.
     } catch (Exception e) {
         return ResponseEntity.notFound().build();
     }
@@ -117,7 +117,6 @@ public class PedidoController {
      * Si no se encuentra el pedido, devuelve un HTTP 404 Not Found.
      * Ejemplo: /api/v1/pedidos/1
      */
-    // método para buscar por ID
     @GetMapping("/{id}") 
     public ResponseEntity<Pedido> buscarPorId(@PathVariable Integer id) { 
         try {
@@ -135,7 +134,6 @@ public class PedidoController {
      * Devuelve un HTTP 200 OK con el conteo de los pedidos.
      * Ejemplo: /api/v1/pedidos/count
      */
-    // Método para contar pedidos
     @GetMapping("/count")
     public ResponseEntity<Long> contar() { 
         Long count = pedidoService.count(); 

@@ -1,7 +1,6 @@
 package com.gestionPedidos.GestionPedidos.Repository;
 
 import com.gestionPedidos.GestionPedidos.Model.Cliente;
-import com.gestionPedidos.GestionPedidos.Model.Pedido;
 
 import java.util.List;
 
@@ -31,12 +30,12 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
      * Método que busca un cliente por su nombre.
      * Ignorando mayúsculas y minúsculas.
      */
-    Cliente findByNombreConstraingIgnoreCase(String nombre); 
+    List<Cliente> findByNombreContainingIgnoreCase(String nombre);
 
     /*
      * Método que busca un cliente por su mail.
      * Ignorando mayúsculas y minúsculas.
      */
-    Cliente findByEmailConstraingIgnoreCase(String email); 
+    List<Cliente> findByMailContainingIgnoreCase(String mail);
     
 }
