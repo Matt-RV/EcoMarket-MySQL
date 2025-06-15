@@ -43,4 +43,9 @@ public class ClienteService {
         return clienteRepository.findByNombreContainingIgnoreCase(nombre);
     }
 
+    // Método para buscar clientes por email
+    public List<Cliente> findByEmailConstraingIgnoreCase(String emailCliente) { 
+        return clienteRepository.findByEmailContainingIgnoreCase(emailCliente);
+    }
+
 }

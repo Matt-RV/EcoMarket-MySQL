@@ -153,8 +153,8 @@ public class ClienteController {
      * Ejemplo: /api/v1/cleintes/email/{email}
      */
     @GetMapping("/email/{email}")
-    public ResponseEntity<List<Cliente>> buscarPorEmail(@PathVariable String email) { 
-        List<Cliente> clientes = clienteService.findByNombreContainingIgnoreCase(email);
+    public ResponseEntity<List<Cliente>> buscarPorEmail(@PathVariable String emailCliente) { 
+        List<Cliente> clientes = clienteService.findByEmailConstraingIgnoreCase(emailCliente);
         if (clientes.isEmpty()) { 
             return ResponseEntity.noContent().build();
         }
