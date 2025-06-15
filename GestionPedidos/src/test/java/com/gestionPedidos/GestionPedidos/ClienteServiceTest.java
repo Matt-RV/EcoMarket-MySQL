@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.TestExecutionListeners;
 
 import com.gestionPedidos.GestionPedidos.Service.ClienteService;
 import com.gestionPedidos.GestionPedidos.Model.Cliente;
@@ -43,10 +42,10 @@ public class ClienteServiceTest {
         
         when(clienteRepository.findById(id)).thenReturn(Optional.of(cliente));
 
-        Cliente resultado = clienteService.findByCliente(id);
+        Cliente f = clienteService.findByCliente(id);
 
-        assertNotNull(resultado);
-        assertEquals(id, resultado.getIdCliente());
+        assertNotNull(f);
+        assertEquals(id, f.getIdCliente());
     }
 
     @Test
@@ -56,6 +55,7 @@ public class ClienteServiceTest {
         when(clienteRepository.save(cliente)).thenReturn(cliente);
 
         Cliente savedCliente = clienteService.save(cliente);
+        
         assertNotNull(savedCliente);
         assertEquals("John", savedCliente.getNombreCliente());
 
@@ -64,9 +64,7 @@ public class ClienteServiceTest {
     @Test
     public void testDelete() { 
         Integer id = 1;
-
-        doNothing().when(clienteRepository).deleteById(id);
-
-        verify(clienteRepository, times(1)).deleteById(id);
+        clienteService.delete(id);
+        verify(clienteRepository).deleteById(id);
     }
 }

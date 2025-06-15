@@ -30,12 +30,13 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
      * Método que busca un cliente por su nombre.
      * Ignorando mayúsculas y minúsculas.
      */
-    List<Cliente> findByNombreContainingIgnoreCase(String nombre);
+    List<Cliente> findByNombreClienteContainingIgnoreCase(String nombreCliente);
 
     /*
-     * Método que busca un cliente por su mail.
+     * Método que busca un cliente por su email.
      * Ignorando mayúsculas y minúsculas.
      */
-    List<Cliente> findByEmailContainingIgnoreCase(String emailCliente);
+    List<Cliente> findByEmailClienteContainingIgnoreCase(String emailCliente);
     
 }
+ 

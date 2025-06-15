@@ -136,8 +136,8 @@ public class ClienteController {
      * Ejemplo: /api/v1/clientes/search?nombre=Juan
      */
     @GetMapping("/nombre/{nombre}")
-    public ResponseEntity<List<Cliente>> buscarPorNombre(@PathVariable String nombre) { 
-        List<Cliente> clientes = clienteService.findByNombreContainingIgnoreCase(nombre);
+    public ResponseEntity<List<Cliente>> buscarPorNombre(@PathVariable String nombreCliente) { 
+        List<Cliente> clientes = clienteService.findByNombreContainingIgnoreCase(nombreCliente);
         if (clientes.isEmpty()) { 
             return ResponseEntity.noContent().build();
         }
@@ -154,7 +154,7 @@ public class ClienteController {
      */
     @GetMapping("/email/{email}")
     public ResponseEntity<List<Cliente>> buscarPorEmail(@PathVariable String emailCliente) { 
-        List<Cliente> clientes = clienteService.findByEmailConstraingIgnoreCase(emailCliente);
+        List<Cliente> clientes = clienteService.findByEmailClienteContainingIgnoreCase(emailCliente);
         if (clientes.isEmpty()) { 
             return ResponseEntity.noContent().build();
         }

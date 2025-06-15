@@ -39,13 +39,13 @@ public class ClienteService {
     }
 
     // Método para buscar clientes por nombre
-    public List<Cliente> findByNombreContainingIgnoreCase(String nombre) { 
-        return clienteRepository.findByNombreContainingIgnoreCase(nombre);
+    public List<Cliente> findByNombreContainingIgnoreCase(String nombreCliente) { 
+        return clienteRepository.findByNombreClienteContainingIgnoreCase(nombreCliente);
     }
 
     // Método para buscar clientes por email
-    public List<Cliente> findByEmailConstraingIgnoreCase(String emailCliente) { 
-        return clienteRepository.findByEmailContainingIgnoreCase(emailCliente);
+    public List<Cliente> findByEmailClienteContainingIgnoreCase(String emailCliente) { 
+        return clienteRepository.findByEmailClienteContainingIgnoreCase(emailCliente);
     }
 
 }

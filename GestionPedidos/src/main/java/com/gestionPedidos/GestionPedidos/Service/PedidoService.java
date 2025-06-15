@@ -42,7 +42,7 @@ public class PedidoService {
 
     // Método para buscar pedidos por estado
     public List<Pedido> findByEstado(String estado) { 
-        return pedidoRepository.findByEstadoConstraingIgnoreCase(estado);
+        return pedidoRepository.findByEstadoContainingIgnoreCase(estado);
     }
 
     // Método para buscar pedidos por cliente

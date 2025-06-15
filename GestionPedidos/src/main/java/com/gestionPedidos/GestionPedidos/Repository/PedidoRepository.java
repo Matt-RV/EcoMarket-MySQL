@@ -29,7 +29,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
      * Método para buscar pedidos por estado.
      * Ignora mayúsculas y minúsculas dentro del parámetro.
      */
-    List<Pedido> findByEstadoConstraingIgnoreCase(String estado); 
+    List<Pedido> findByEstadoContainingIgnoreCase(String estado);
 
     /*
      * Método para buscar pedidos por id de cliente.
