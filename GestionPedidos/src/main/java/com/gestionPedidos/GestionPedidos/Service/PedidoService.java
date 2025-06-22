@@ -49,4 +49,9 @@ public class PedidoService {
     public List<Pedido> findByIdCliente(Integer idCliente) { 
         return pedidoRepository.findByCliente_IdCliente(idCliente);
     }
+
+    public boolean existsById(Integer idPedido) { 
+        return pedidoRepository.existsById(idPedido);
+    }
+
 }    

@@ -2,8 +2,6 @@ package com.gestionPedidos.GestionPedidos;
 
 import com.gestionPedidos.GestionPedidos.Model.*;
 import com.gestionPedidos.GestionPedidos.Repository.*;
-import com.gestionPedidos.GestionPedidos.Service.*;
-
 import net.datafaker.Faker;
 import java.util.List;
 import java.util.Random;

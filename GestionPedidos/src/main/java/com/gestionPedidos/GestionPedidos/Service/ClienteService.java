@@ -48,4 +48,7 @@ public class ClienteService {
         return clienteRepository.findByEmailClienteContainingIgnoreCase(emailCliente);
     }
 
+    public boolean existsById(Integer idCliente) { 
+        return clienteRepository.existsById(idCliente);
+    }
 }

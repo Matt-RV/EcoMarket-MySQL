@@ -2,6 +2,12 @@ package com.gestionPedidos.GestionPedidos.Controller;
 
 import com.gestionPedidos.GestionPedidos.Model.Pedido;
 import com.gestionPedidos.GestionPedidos.Service.PedidoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +18,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/pedidos")
+@Tag(name = "Pedidos", description = "Operaciones relacionadas con los pedidos")
+
 public class PedidoController {
+
     @Autowired
     private PedidoService pedidoService;
+
+
 
 
      /*
@@ -24,6 +35,23 @@ public class PedidoController {
       * ejemplo: /api/v1/pedidos
       */
     @GetMapping
+    @Operation(summary = "Listar todos los pedidos",
+               description = "Obtiene una lista de todos los pedidos registrados registrados en el sistema.")
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Lista de pedidos obtenida correctamente.",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = Pedido.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "204",
+            description = "No hay pedidos registrados en el sistema."
+        )
+    }
+    )
     public ResponseEntity<List<Pedido>> listar() { 
         List<Pedido> pedidos = pedidoService.findAll(); 
         if(pedidos.isEmpty()) { 
@@ -31,8 +59,6 @@ public class PedidoController {
         }
         return ResponseEntity.ok(pedidos); 
     }
-
-
 
 
     /* 
@@ -44,6 +70,23 @@ public class PedidoController {
      * Ejemplo: /api/v1/pedidos
      */
     @PostMapping // Para crear uno nuevo.
+    @Operation(summary = "Crear un nuevo pedido",
+               description = "Crea un nuevo pedido y lo registra en el sistema.")
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "201",
+            description = "Pedido creado correctamente.",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = Pedido.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Error al crear el pedido, verifique los datos enviados."
+        )
+    }
+    )
     public ResponseEntity<Pedido> guardar(@RequestBody Pedido pedido) {
         try {
             Pedido nuevoPedido = pedidoService.save(pedido);
@@ -52,7 +95,6 @@ public class PedidoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); 
         }
     }
-
 
 
     /*
@@ -64,8 +106,30 @@ public class PedidoController {
      * Ejemplo: /api/v1/pedidos/1
      */
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar un pedido existente",
+               description = "Actualiza un pedido ya existente en el sistema.")
+    @ApiResponses(value = { 
+        @ApiResponse(
+            responseCode = "200",
+            description = "Pedido actualizado correctamente.",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = Pedido.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "404",
+            description = "Pedido no encontrado con el ID proporcionado"
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Error al actualizar el pedido, verifique los datos enviados."
+        )
+    }
+    )
     public ResponseEntity<Pedido> actualizar(@PathVariable Integer id, @RequestBody Pedido pedido) { 
         try { 
+            if (this.pedidoService.existsById(id)) { 
             Pedido tmp = pedidoService.findById(id); // Busca el pedido por ID.
             // Actualiza los datos del pedido.
             tmp.setIdPedido(id);
@@ -73,15 +137,18 @@ public class PedidoController {
             tmp.setEstado(pedido.getEstado());
             tmp.setTotal(pedido.getTotal());
             tmp.setCliente(pedido.getCliente());
-            
             // Guarda los cambios.
             pedidoService.save(tmp);
             return ResponseEntity.ok(tmp); // Devuelve el pedido actualizado.
+            }
+            else { 
+                return ResponseEntity.notFound().build();
+            }
+            
         } catch (Exception e) { 
-            return ResponseEntity.notFound().build(); 
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); 
         }
     }
-
 
 
     /*
@@ -93,6 +160,26 @@ public class PedidoController {
      */
     // Método para eliminar un pedido por ID
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar un pedido",
+               description = "Elimina un pedido existente del sistema.")
+    @ApiResponses(value = { 
+        @ApiResponse(
+            responseCode = "200",
+            description = "Pedido eliminado correctamente."
+        )
+        ,
+        @ApiResponse(
+            responseCode = "404",
+            description = "Pedido no encontrado, el ID no corresponde a ningún pedido registrado"
+
+        )
+        ,
+        @ApiResponse(
+            responseCode = "400",
+            description = "Error al eliminar el pedido, verifique el ID proporcionado."
+        )
+    }
+    )
     public ResponseEntity<Pedido> eliminar(@PathVariable Integer id) {
         try {
         // Primero verificar si el pedido existe
@@ -103,11 +190,10 @@ public class PedidoController {
         // Si existe, eliminarlo
         pedidoService.delete(id);
         return ResponseEntity.ok(pedido); // Devuelve el pedido eliminado.
-    } catch (Exception e) {
-        return ResponseEntity.notFound().build();
-    }
-}
-
+        } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }   
 
 
     /*
@@ -118,6 +204,24 @@ public class PedidoController {
      * Ejemplo: /api/v1/pedidos/1
      */
     @GetMapping("/{id}") 
+    @Operation(summary = "Buscar un pedido por ID",
+               description = "Busca un pedido específico por su ID en el sistema.")
+    @ApiResponses(value = { 
+        @ApiResponse(
+            responseCode = "200",
+            description = "Pedido encontrado correctamente.",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = Pedido.class)
+            )
+        )
+        ,
+        @ApiResponse(
+            responseCode = "404",
+            description = "Pedido no encontrado con el ID proporcionado."
+        )
+    }
+    )
     public ResponseEntity<Pedido> buscarPorId(@PathVariable Integer id) { 
         try {
             Pedido pedido = pedidoService.findById(id);
@@ -128,18 +232,22 @@ public class PedidoController {
     }
 
 
-
     /*
      * Cuenta el número total de pedidos en el sistema.
      * Devuelve un HTTP 200 OK con el conteo de los pedidos.
      * Ejemplo: /api/v1/pedidos/count
      */
     @GetMapping("/count")
+    @Operation(summary = "Contar el número total de pedidos",
+               description = "Cuenta todos los pedidos registrados en el sistema.")
+    @ApiResponse(
+        responseCode = "200",
+        description = "Número total de pedidos en el sistema."
+    )
     public ResponseEntity<Long> contar() { 
         Long count = pedidoService.count(); 
         return ResponseEntity.ok(count); 
     }
-
 
 
     /*
@@ -150,32 +258,27 @@ public class PedidoController {
      * Ejemplo: /api/v1/pedidos/estado/Pendiente
      */
     @GetMapping("/estado/{estado}")
+    @Operation(summary = "Buscar pedidos por estado", 
+               description = "Busca pedidos en el sistema según su estado.")
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Pedidos encontrados por estado."
+        )
+        ,
+        @ApiResponse(
+            responseCode = "404",
+            description = "No se encontraros los pedidos con el estado proporcionado."
+        )
+    })
     public ResponseEntity<List<Pedido>> buscarPorEstado(@PathVariable String estado) { 
         List<Pedido> pedidos = pedidoService.findByEstado(estado);
         if (pedidos.isEmpty()) {
             return ResponseEntity.notFound().build(); // Devuelve un HTTP 404 Not Found si no hay pedidos con ese estado.
         }
         return ResponseEntity.ok(pedidos); // Devuelve un HTTP 200 OK con la lista de pedidos encontrados.
-    }        
-    
-    /*
-     * Busca pedidos por ID de cliente.
-     * Se busca por ID de cliente.
-     * Retorna un HTTP 200 OK con la lista de pedidos encontrados por ID de cliente.
-     * Si no encuentra pedidos con ese ID de cliente, devuelve un HTTP 404 Not Found.
-     * Ejemplo: /api/v1/pedidos/cliente/1
-     */
-    @GetMapping("/cliente/{idCliente}")
-    public ResponseEntity<List<Pedido>> buscarPorCliente(@PathVariable Integer idCliente) { 
-        List<Pedido> pedidos = pedidoService.findByIdCliente(idCliente);
-        if(pedidos.isEmpty()) { 
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(pedidos);
-    }
+    }      
 
-    
-    
     
     /*
      * Actualiza el estado de un pedido.
@@ -185,6 +288,20 @@ public class PedidoController {
      * Ejemplo: /api/v1/pedidos/1/estado/Entregado
      */
     @PutMapping("/{id}/estado/{estado}")
+    @Operation(summary = "Actualizar el estado de un pedido.",
+               description = "Actualiza el estado de un pedido ya existente en el sistema.")
+    @ApiResponses(value = { 
+        @ApiResponse(
+            responseCode = "200",
+            description = "Estado del pedido actualizado correctamente."
+        )
+        ,
+        @ApiResponse(
+            responseCode = "404",
+            description = "Pedido no encontrado con el ID proporcionado."
+        )
+    }
+    )
     public ResponseEntity<Pedido> actualizarEstado(@PathVariable Integer id, @PathVariable String estado) { 
         try {
             Pedido pedido = pedidoService.findById(id); // Busca el pedido por ID.
