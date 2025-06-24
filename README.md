@@ -17,7 +17,7 @@
 - **Spring Data JPA**
 - **Spring HATEOAS**
 - **MySQL**
-- **Swagger/OpenAPI **
+- **Swagger/OpenAPI**
 - **Lombok**
 - **DataFaker** (generación de datos de prueba)
 - **JUnit 5** y **Mockito** (testing)
