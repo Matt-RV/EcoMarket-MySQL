@@ -84,16 +84,24 @@ public class PedidoController {
         @ApiResponse(
             responseCode = "400",
             description = "Error al crear el pedido, verifique los datos enviados."
+        ),
+        @ApiResponse(
+            responseCode = "406",
+            description = "El monto total del pedido no cumple con las reglas del negocio."
         )
     }
     )
     public ResponseEntity<Pedido> guardar(@RequestBody Pedido pedido) {
-        try {
-            Pedido nuevoPedido = pedidoService.save(pedido);
-            return ResponseEntity.status(HttpStatus.CREATED).body(nuevoPedido);
-        } catch (Exception e) { 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); 
+    final double monto_total_maximo = 9999999.99; // Definimos un monto total máximo
+    try {
+        if (pedido.getTotal() > monto_total_maximo || pedido.getTotal() < 0) {  
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null); // No cumple con las reglas del negocio.
         }
+        Pedido nuevoPedido = pedidoService.save(pedido);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoPedido);
+    } catch (Exception e) { 
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); 
+    }
     }
 
 
