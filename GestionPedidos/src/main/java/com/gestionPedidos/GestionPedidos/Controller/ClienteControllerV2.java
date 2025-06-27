@@ -50,12 +50,23 @@ public class ClienteControllerV2 {
 
     @Operation(summary = "Obtener cliente por ID",
                description = "Devuelve el cliente según el ID proporcionado.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Cliente encontrado",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))),
+        @ApiResponse(responseCode = "404", description = "Cliente no encontrado")
+    })
     @GetMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
     public EntityModel<Cliente> getClienteById(@PathVariable Integer id) { 
         Cliente cliente = clienteService.findByCliente(id);
         return clienteModelAssembler.toModel(cliente);
     }
 
+    @Operation(summary = "Crear un nuevo cliente", 
+               description = "Registra un nuevo cliente en el sistema.")
+    @ApiResponses( value = {
+        @ApiResponse(responseCode = "201",
+                     description = "Cliente creado correctamente")
+    })
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<Cliente>> createCliente(@RequestBody Cliente cliente) { 
         Cliente createdCliente = clienteService.save(cliente);
