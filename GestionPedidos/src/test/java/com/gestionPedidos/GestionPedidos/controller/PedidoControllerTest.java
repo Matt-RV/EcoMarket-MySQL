@@ -1,4 +1,4 @@
-package com.gestionPedidos.GestionPedidos;
+package com.gestionPedidos.GestionPedidos.controller;
 
 import java.util.List;
 import java.util.Date;

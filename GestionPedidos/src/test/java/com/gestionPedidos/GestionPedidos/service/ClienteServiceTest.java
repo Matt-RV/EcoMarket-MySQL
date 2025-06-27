@@ -1,4 +1,4 @@
- package com.gestionPedidos.GestionPedidos;
+ package com.gestionPedidos.GestionPedidos.service;
 
 import java.util.List;
 import java.util.Optional;
