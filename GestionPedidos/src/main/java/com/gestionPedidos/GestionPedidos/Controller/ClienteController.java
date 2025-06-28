@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/clientes")
-@Tag(name = "Clientes", description = "Métodos relacionados con la gestión de clientes")
+@Tag(name = "Clientes", description = "Métodos relacionados con la gestión de clientes.")
 
 public class ClienteController {
 
@@ -31,12 +31,12 @@ public class ClienteController {
      * Ejemplo: /api/v1/clientes
      */
     @GetMapping
-    @Operation(summary = "Listar todos los clientes", 
+    @Operation(summary = "Listar todos los clientes.", 
     description = "Obtiene un listado de todos los clientes registrados en el sistema.")
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Lista de clientes encontrada correctamente",
+            description = "Lista de clientes encontrada correctamente.",
             content = @Content(
                 mediaType = "application/json",
                 schema = @Schema(implementation = Cliente.class)
@@ -44,7 +44,7 @@ public class ClienteController {
         ),
         @ApiResponse(
             responseCode = "204",
-            description = "No hay clientes registrados"
+            description = "No hay clientes registrados."
         )
     }
     )
@@ -66,7 +66,7 @@ public class ClienteController {
      * Ejemplo: /api/v1/clientes
      */
     @PostMapping
-    @Operation(summary = "Crear un nuevo cliente", 
+    @Operation(summary = "Crear un nuevo cliente.", 
                description = "Crea un nuevo cliente y lo registra en el sistema.")
     @ApiResponses( value = {
         @ApiResponse(
@@ -79,7 +79,7 @@ public class ClienteController {
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Error al crear un cliente, verifique los datos enviados"
+            description = "Error al crear un cliente, verifique los datos enviados."
         )
     }
     )
@@ -103,12 +103,12 @@ public class ClienteController {
      * Ejemplo: /api/v1/clientes/{idCliente}
      */
     @PutMapping("/{idCliente}")
-    @Operation(summary = "Actualizar un cliente existente",
+    @Operation(summary = "Actualizar un cliente existente.",
                description = "Actualiza los datos de un cliente existente en el sistema, identificándolo por su ID.")
     @ApiResponses( value = { 
         @ApiResponse(
             responseCode = "200",
-            description = "Cliente actualizado exitosamente",
+            description = "Cliente actualizado exitosamente.",
             content = @Content(
                 mediaType = "application/json",
                 schema = @Schema(implementation = Cliente.class)
@@ -116,11 +116,11 @@ public class ClienteController {
         ),
         @ApiResponse(
             responseCode = "404",
-            description = "Cliente no encontrado, el ID proporcionado no corresponde a ningún cliente registrado"
+            description = "Cliente no encontrado, el ID proporcionado no corresponde a ningún cliente registrado."
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Error al actualizar el cliente, los datos proporcionados son inválidos"
+            description = "Error al actualizar el cliente, los datos proporcionados son inválidos."
         )
     }
     )
@@ -156,22 +156,22 @@ public class ClienteController {
      * IMPORTANTE: El ID del cliente debe ser el mismo que se pasa en la URL.
      */
     @DeleteMapping("/{idCliente}")
-    @Operation(summary = "Eliminar un cliente existente",
+    @Operation(summary = "Eliminar un cliente existente.",
                description = "Elimina un cliente existente del sistema, a través de su ID.")
     @ApiResponses(value = { 
         @ApiResponse(
             responseCode = "200",
-            description = "Cliente eliminado de manera exitosa"
+            description = "Cliente eliminado de manera exitosa."
         )
         ,
         @ApiResponse(
             responseCode = "404",
-            description = "Cliente no encontrado, el ID no corresponde a ningún cliente registrado"
+            description = "Cliente no encontrado, el ID no corresponde a ningún cliente registrado."
         )
         ,
         @ApiResponse(
             responseCode = "400",
-            description = "Error al eliminar el cliente, el ID proporcionado es inválido"
+            description = "Error al eliminar el cliente, el ID proporcionado es inválido."
         )
     }
     )
@@ -196,12 +196,12 @@ public class ClienteController {
      * Ejemplo: /api/v1/clientes/{idCliente}
      */
     @GetMapping("/{idCliente}")
-    @Operation(summary = "Buscar un cliente",
+    @Operation(summary = "Buscar un cliente.",
                description =  "Obtiene información de un cliente en específico, identificándolo por su ID.")
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Cliente encontrado de manera exitosa",
+            description = "Cliente encontrado de manera exitosa.",
             content = @Content(
                 mediaType = "application/json",
                 schema = @Schema(implementation = Cliente.class)
@@ -209,7 +209,7 @@ public class ClienteController {
         ),
         @ApiResponse(
             responseCode = "404",
-            description = "Cliente no encontrado, el ID no corresponde a ningún cliente registrado"
+            description = "Cliente no encontrado, el ID no corresponde a ningún cliente registrado."
         )
     }
     )
@@ -228,11 +228,11 @@ public class ClienteController {
      * Ejemplo: /api/v1/clientes/count
      */
     @GetMapping("/count")
-    @Operation(summary = "Contar clientes",
+    @Operation(summary = "Contar clientes.",
                description = "Cuenta el número total de clientes registrados en el sistema.")
     @ApiResponse(
         responseCode = "200",
-        description = "Número total de clientes en el sistema"
+        description = "Número total de clientes en el sistema."
     )
     public ResponseEntity<Long> contar() { 
         Long count = clienteService.count();
@@ -249,17 +249,17 @@ public class ClienteController {
      * Ejemplo: /api/v1/clientes/search?nombre=Juan
      */
     @GetMapping("/nombre/{nombre}")
-    @Operation(summary = "Buscar clientes por nombre",
+    @Operation(summary = "Buscar clientes por nombre.",
                description = "Busca clientes por su nombre, ignorando mayúsculas y minúsculas.")
     @ApiResponses(value = { 
         @ApiResponse(
             responseCode = "200",
-            description = "Clientes encontrados con el nombre proporcionado"
+            description = "Clientes encontrados con el nombre proporcionado."
         )
         ,
         @ApiResponse(
             responseCode = "204",
-            description = "No se encontraron clientes con el nombre proporcionado"
+            description = "No se encontraron clientes con el nombre proporcionado."
         )
     }
     )
@@ -280,16 +280,16 @@ public class ClienteController {
      * Ejemplo: /api/v1/cleintes/email/{email}
      */
     @GetMapping("/email/{email}")
-    @Operation(summary = "Buscar clientes por email",
+    @Operation(summary = "Buscar clientes por email.",
                description = "Busca clientes por su email, ignorando mayúsculas y minúsculas.")
     @ApiResponses(value = { 
         @ApiResponse(
             responseCode = "200",
-            description = "Clientes encontrados con el email proporcionado"
+            description = "Clientes encontrados con el email proporcionado."
         ),
         @ApiResponse(
             responseCode = "204",
-            description = "No se encontraron clientes con el email proporcionado"
+            description = "No se encontraron clientes con el email proporcionado."
         )
     }
     )

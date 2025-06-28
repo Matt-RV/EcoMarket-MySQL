@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/pedidos")
-@Tag(name = "Pedidos", description = "Operaciones relacionadas con los pedidos")
+@Tag(name = "Pedidos", description = "Operaciones relacionadas con los pedidos.")
 
 public class PedidoController {
 
@@ -35,7 +35,7 @@ public class PedidoController {
       * ejemplo: /api/v1/pedidos
       */
     @GetMapping
-    @Operation(summary = "Listar todos los pedidos",
+    @Operation(summary = "Listar todos los pedidos.",
                description = "Obtiene una lista de todos los pedidos registrados registrados en el sistema.")
     @ApiResponses(value = {
         @ApiResponse(
@@ -70,7 +70,7 @@ public class PedidoController {
      * Ejemplo: /api/v1/pedidos
      */
     @PostMapping // Para crear uno nuevo.
-    @Operation(summary = "Crear un nuevo pedido",
+    @Operation(summary = "Crear un nuevo pedido.",
                description = "Crea un nuevo pedido y lo registra en el sistema.")
     @ApiResponses(value = {
         @ApiResponse(
@@ -114,7 +114,7 @@ public class PedidoController {
      * Ejemplo: /api/v1/pedidos/1
      */
     @PutMapping("/{id}")
-    @Operation(summary = "Actualizar un pedido existente",
+    @Operation(summary = "Actualizar un pedido existente.",
                description = "Actualiza un pedido ya existente en el sistema.")
     @ApiResponses(value = { 
         @ApiResponse(
@@ -127,7 +127,7 @@ public class PedidoController {
         ),
         @ApiResponse(
             responseCode = "404",
-            description = "Pedido no encontrado con el ID proporcionado"
+            description = "Pedido no encontrado con el ID proporcionado."
         ),
         @ApiResponse(
             responseCode = "400",
@@ -168,7 +168,7 @@ public class PedidoController {
      */
     // Método para eliminar un pedido por ID
     @DeleteMapping("/{id}")
-    @Operation(summary = "Eliminar un pedido",
+    @Operation(summary = "Eliminar un pedido.",
                description = "Elimina un pedido existente del sistema.")
     @ApiResponses(value = { 
         @ApiResponse(
@@ -178,7 +178,7 @@ public class PedidoController {
         ,
         @ApiResponse(
             responseCode = "404",
-            description = "Pedido no encontrado, el ID no corresponde a ningún pedido registrado"
+            description = "Pedido no encontrado, el ID no corresponde a ningún pedido registrado."
 
         )
         ,
@@ -212,7 +212,7 @@ public class PedidoController {
      * Ejemplo: /api/v1/pedidos/1
      */
     @GetMapping("/{id}") 
-    @Operation(summary = "Buscar un pedido por ID",
+    @Operation(summary = "Buscar un pedido por ID.",
                description = "Busca un pedido específico por su ID en el sistema.")
     @ApiResponses(value = { 
         @ApiResponse(
@@ -246,7 +246,7 @@ public class PedidoController {
      * Ejemplo: /api/v1/pedidos/count
      */
     @GetMapping("/count")
-    @Operation(summary = "Contar el número total de pedidos",
+    @Operation(summary = "Contar el número total de pedidos.",
                description = "Cuenta todos los pedidos registrados en el sistema.")
     @ApiResponse(
         responseCode = "200",
@@ -266,7 +266,7 @@ public class PedidoController {
      * Ejemplo: /api/v1/pedidos/estado/Pendiente
      */
     @GetMapping("/estado/{estado}")
-    @Operation(summary = "Buscar pedidos por estado", 
+    @Operation(summary = "Buscar pedidos por estado.", 
                description = "Busca pedidos en el sistema según su estado.")
     @ApiResponses(value = {
         @ApiResponse(
