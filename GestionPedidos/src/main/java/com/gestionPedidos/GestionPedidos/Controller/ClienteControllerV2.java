@@ -7,6 +7,7 @@ import com.gestionPedidos.GestionPedidos.Service.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -24,6 +25,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
 @RequestMapping("/api/v2/clientes")
+@Tag(name = "Clientes V2", description = ("Operaciones CRUD HATEOAS para clientes."))
 public class ClienteControllerV2 {
 
     @Autowired
