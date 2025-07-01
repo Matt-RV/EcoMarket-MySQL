@@ -7,7 +7,8 @@
 - **API REST** con endpoints bien estructurados
 - **Documentación** con Swagger
 - **Soporte HATEOAS** (v2 de la API)
-- **Base de datos MySQL** con configuraciones para desarrollo y testing
+- **Base de datos MySQL** en la nube con configuraciones para desarrollo y testing
+- **Desplegado en AWS** (EC2)
 - **Datos de prueba** generados automáticamente con Faker.
 - **Testing unitario** con JUnit y Mockito
 
@@ -16,7 +17,7 @@
 - **Spring Boot 3.x**
 - **Spring Data JPA**
 - **Spring HATEOAS**
-- **MySQL**
+- **MySQL** (AWS EC2 para el microservicio)
 - **Swagger/OpenAPI**
 - **Lombok**
 - **DataFaker** (generación de datos de prueba)
@@ -41,14 +42,9 @@ CREATE DATABASE ecomarket_pedidos_test;
 
 ### 2.- Configuración de perfiles
 
-El proyecto incluye tres perfiles de configuración:
+El proyecto incluye dos perfiles de configuración:
   - **Desarrollo** ('dev'): Configuración para desarrollo local.
   - **Testing** ('test'): Configuración para pruebas.
-  - **Producción** (por defecto): Configuración base.
-
-### 3.- Variables de entorno
--- Falta
-
 
 ### Importante: La aplicación estará disponible en: 'http://localhost:8081'
 
