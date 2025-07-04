@@ -2,6 +2,7 @@ package com.gestionPedidos.GestionPedidos.controller;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,7 +68,7 @@ public class ClienteControllerTest {
         assertEquals(1, response.getBody().getIdCliente());
     }
 
-    @Test
+        @Test
     public void testEliminar() { 
         Integer id = 1;
         Cliente cliente = new Cliente();
@@ -75,9 +76,8 @@ public class ClienteControllerTest {
         when(clienteService.findByCliente(id)).thenReturn(cliente);
         doNothing().when(clienteService).delete(id);
 
-        ResponseEntity<Cliente> response = clienteController.eliminar(id);
-        assertEquals(200, response.getStatusCodeValue());
-        assertNotNull(response.getBody());
-        assertEquals(id, response.getBody().getIdCliente());
+        ResponseEntity<Void> response = clienteController.eliminar(id);
+        assertEquals(204, response.getStatusCodeValue());
+        assertNull(response.getBody());
     }
 }

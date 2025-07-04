@@ -148,47 +148,42 @@ public class ClienteController {
     }
 
     /*
-     * Metodo para eliminar un cliente del sistema.
-     * Se busca el cliente por su ID.
-     * Si el cliente no se encuentra, devuelve un HTTP 404 Not Found.
-     * Si se encuentra, se elimina el cliente y devuelve un HTTP 204 No Content.
-     * Ejemplo: /api/v1/clientes/{idCliente}
-     * IMPORTANTE: El ID del cliente debe ser el mismo que se pasa en la URL.
-     */
+    * Metodo para eliminar un cliente del sistema.
+    * Se busca el cliente por su ID.
+    * Si el cliente no se encuentra, devuelve un HTTP 404 Not Found.
+    * Si se encuentra, se elimina el cliente y devuelve un HTTP 204 No Content.
+    * Ejemplo: /api/v1/clientes/{idCliente}
+    * IMPORTANTE: El ID del cliente debe ser el mismo que se pasa en la URL.
+    */
     @DeleteMapping("/{idCliente}")
     @Operation(summary = "Eliminar un cliente existente.",
-               description = "Elimina un cliente existente del sistema, a través de su ID.")
+            description = "Elimina un cliente existente del sistema, a través de su ID.")
     @ApiResponses(value = { 
         @ApiResponse(
-            responseCode = "200",
+            responseCode = "204",
             description = "Cliente eliminado de manera exitosa."
-        )
-        ,
+        ),
         @ApiResponse(
             responseCode = "404",
             description = "Cliente no encontrado, el ID no corresponde a ningún cliente registrado."
-        )
-        ,
+        ),
         @ApiResponse(
             responseCode = "400",
             description = "Error al eliminar el cliente, el ID proporcionado es inválido."
         )
-    }
-    )
-    public ResponseEntity<Cliente> eliminar(@PathVariable Integer idCliente) { 
+    })
+    public ResponseEntity<Void> eliminar(@PathVariable Integer idCliente) { 
         try { 
             Cliente cliente = clienteService.findByCliente(idCliente);
             if (cliente == null) { 
                 return ResponseEntity.notFound().build();
             }
-            // Si existe, elimina el cliente.
             clienteService.delete(idCliente);
-            return ResponseEntity.ok(cliente); // Devuelve el cliente eliminado.
+            return ResponseEntity.noContent().build(); // 204 No Content
         } catch (Exception e) { 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.badRequest().build();
         }
-    }
-
+    }   
     /*
      * Metodo para buscar un cliente por su ID.
      * Si el cliente es encontrado, devuelve un HTTP 200 OK con el cliente.
@@ -239,65 +234,4 @@ public class ClienteController {
         return ResponseEntity.ok(count);
     }
 
-
-    /*
-     * Metodo para buscar clientes por nombre.
-     * Se recibe un parámetro de consulta "nombre" en la URL.
-     * Si no encuentra clientes, devuelve un HTTP 204 No Content.
-     * Si encuentra clientes, devuelve un HTTP 200 OK con la lista de clientes.
-     * El nombre se busca ignorando mayúsculas y minúsculas.
-     * Ejemplo: /api/v1/clientes/search?nombre=Juan
-     */
-    @GetMapping("/nombre/{nombre}")
-    @Operation(summary = "Buscar clientes por nombre.",
-               description = "Busca clientes por su nombre, ignorando mayúsculas y minúsculas.")
-    @ApiResponses(value = { 
-        @ApiResponse(
-            responseCode = "200",
-            description = "Clientes encontrados con el nombre proporcionado."
-        )
-        ,
-        @ApiResponse(
-            responseCode = "204",
-            description = "No se encontraron clientes con el nombre proporcionado."
-        )
-    }
-    )
-    public ResponseEntity<List<Cliente>> buscarPorNombre(@PathVariable String nombreCliente) { 
-        List<Cliente> clientes = clienteService.findByNombreContainingIgnoreCase(nombreCliente);
-        if (clientes.isEmpty()) { 
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(clientes);
-    }
-
-    /*
-     * Metodo para buscar clientes por email.
-     * Se recibe un parámetro de consulta "email" en la URL.
-     * si no encuentra clientes, devuelve un HTTP 204 No Content.
-     * Si encuentra clientes, devuelve un HTTP 200 OK con la lista de clientes.
-     * El email se busca ignorando mayúsculas y minúsculas.
-     * Ejemplo: /api/v1/cleintes/email/{email}
-     */
-    @GetMapping("/email/{email}")
-    @Operation(summary = "Buscar clientes por email.",
-               description = "Busca clientes por su email, ignorando mayúsculas y minúsculas.")
-    @ApiResponses(value = { 
-        @ApiResponse(
-            responseCode = "200",
-            description = "Clientes encontrados con el email proporcionado."
-        ),
-        @ApiResponse(
-            responseCode = "204",
-            description = "No se encontraron clientes con el email proporcionado."
-        )
-    }
-    )
-    public ResponseEntity<List<Cliente>> buscarPorEmail(@PathVariable String emailCliente) { 
-        List<Cliente> clientes = clienteService.findByEmailClienteContainingIgnoreCase(emailCliente);
-        if (clientes.isEmpty()) { 
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(clientes);
-    }
 }

@@ -29,7 +29,7 @@ public class DataLoader implements CommandLineRunner{
         Random random = new Random();
 
         // Generar clientes
-        for (int i = 0; i < 25; i++) { 
+        for (int i = 0; i < 5; i++) { 
             Cliente cliente = new Cliente();
             cliente.setIdCliente(i+1);
             cliente.setNombreCliente(faker.name().firstName());
@@ -41,7 +41,7 @@ public class DataLoader implements CommandLineRunner{
         List<Cliente> listaClientes = clienteRepository.findAll();
 
         // Generar tipos de pedidos
-        for (int i = 0; i < 25; i++)  {
+        for (int i = 0; i < 5; i++)  {
             Pedido pedido = new Pedido();
             pedido.setFechaCreacion(faker.date().past(30, java.util.concurrent.TimeUnit.DAYS));
             pedido.setEstado(faker.options().option("Pendiente", "Entregado", "Cancelado"));
